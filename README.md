@@ -54,6 +54,13 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to view the application.
 
+
+
+
+show link : https://drive.google.com/file/d/1mSbY9zuKWhctywoH2UTrqTppZm2B4MaB/view?usp=sharing
+
+Link to the explanation: https://drive.google.com/file/d/1Md-8C3ylTbr2dLSrDslwijyaD4t974sj/view?usp=sharing
+
 ## Project Structure Overview
 - `/app`: Next.js App Router containing all page routes, layouts, and API endpoints.
 - `/components`: Reusable React components (e.g., `NavBar`, `Footer`, `ActionAreaCard`).
