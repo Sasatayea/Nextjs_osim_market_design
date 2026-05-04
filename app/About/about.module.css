@@ -1,0 +1,54 @@
+/* ─── About Page Responsive Overrides ─── */
+
+/* Hero: side-by-side → stacked on mobile */
+@media (max-width: 900px) {
+  .aboutHero {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+    padding: 32px 20px !important;
+    gap: 32px !important;
+  }
+
+  .aboutHeroImage {
+    min-height: 350px !important;
+    max-height: 400px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Split sections → stacked */
+  .aboutSplit {
+    grid-template-columns: 1fr !important;
+    padding: 48px 20px !important;
+    gap: 32px !important;
+  }
+
+  /* Stats → 2 columns */
+  .aboutStats {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Mission grid → 1 column */
+  .aboutMissionGrid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Values → 1 column */
+  .aboutValuesGrid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Product grid */
+  .aboutGrid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .aboutStats {
+    grid-template-columns: 1fr !important;
+  }
+
+  .aboutGrid {
+    grid-template-columns: 1fr !important;
+  }
+}
