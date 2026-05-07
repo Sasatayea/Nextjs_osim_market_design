@@ -1,7 +1,9 @@
 "use client";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation();
   const year = new Date().getFullYear();
 
   return (
@@ -51,8 +53,7 @@ export default function Footer() {
             maxWidth: 280,
             marginBottom: 28,
           }}>
-            Curated premium men&apos;s fashion for those who believe
-            clothing is an expression of character, not just necessity.
+            {t('footer.tagline')}
           </p>
           {/* Social icons */}
           <div style={{ display: "flex", gap: 8 }}>
@@ -68,17 +69,17 @@ export default function Footer() {
         </div>
 
         {/* Quick Links */}
-        <FooterColumn title="Navigation">
+        <FooterColumn title={t('footer.nav_title')}>
           {[
-            { label: "Home", href: "/" },
-            { label: "About Us", href: "/About" },
-            { label: "Cart", href: "/cart2" },
-            { label: "Account", href: "/userInfo" },
+            { label: t('nav.home'), href: "/" },
+            { label: t('nav.about'), href: "/About" },
+            { label: t('nav.cart'), href: "/cart2" },
+            { label: t('nav.account'), href: "/userInfo" },
           ]}
         </FooterColumn>
 
         {/* Contact */}
-        <FooterColumn title="Contact">
+        <FooterColumn title={t('footer.contact_title')}>
           {[
             { label: "info@osim-market.com", href: "mailto:info@osim-market.com" },
             { label: "+20 100 000 0000", href: "tel:+201000000000" },
@@ -95,9 +96,9 @@ export default function Footer() {
             textTransform: "uppercase",
             color: "var(--gold)",
             marginBottom: 20,
-          }}>Stay in the loop</p>
+          }}>{t('footer.newsletter_eyebrow')}</p>
           <p style={{ color: "var(--text-3)", fontSize: "0.82rem", lineHeight: 1.65, marginBottom: 16 }}>
-            Get notified about new collections and exclusive offers.
+            {t('footer.newsletter_subtitle')}
           </p>
           <form onSubmit={e => e.preventDefault()} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <input
@@ -137,7 +138,7 @@ export default function Footer() {
               onMouseEnter={e => { e.currentTarget.style.filter = "brightness(1.05)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
               onMouseLeave={e => { e.currentTarget.style.filter = "none"; e.currentTarget.style.transform = "none"; }}
             >
-              Subscribe
+              {t('footer.subscribe')}
             </button>
           </form>
         </div>
@@ -156,11 +157,15 @@ export default function Footer() {
         gap: 12,
       }}>
         <p style={{ color: "var(--text-4)", fontSize: "0.75rem", fontFamily: "var(--font-mono)" }}>
-          © {year} OSIM Store. All rights reserved.
+          © {year} OSIM Store. {t('footer.rights')}
         </p>
         <div style={{ display: "flex", gap: 24 }}>
-          {["Privacy Policy", "Terms of Service", "Cookies"].map(item => (
-            <a key={item} href="#" style={{
+          {[
+            { key: 'privacy', label: t('footer.privacy') },
+            { key: 'terms', label: t('footer.terms') },
+            { key: 'cookies', label: t('footer.cookies') }
+          ].map(item => (
+            <a key={item.key} href="#" style={{
               color: "var(--text-4)",
               fontSize: "0.75rem",
               fontFamily: "var(--font-mono)",
@@ -169,7 +174,7 @@ export default function Footer() {
               onMouseEnter={e => e.currentTarget.style.color = "var(--gold)"}
               onMouseLeave={e => e.currentTarget.style.color = "var(--text-4)"}
             >
-              {item}
+              {item.label}
             </a>
           ))}
         </div>

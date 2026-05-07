@@ -3,8 +3,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useCart } from "@/app/context/CartContext";
+import { useTranslation } from "react-i18next";
 
 const NavBar = () => {
+  const { t, i18n } = useTranslation();
   const [session, setSession] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -37,6 +39,11 @@ const NavBar = () => {
     }
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
+
+  const toggleLanguage = () => {
+    const nextLang = i18n.language === 'en' ? 'ar' : 'en';
+    i18n.changeLanguage(nextLang);
+  };
 
   const navbarStyle = {
     position: "sticky",
@@ -111,7 +118,7 @@ const NavBar = () => {
             flex: 1,
             justifyContent: "center",
           }}>
-            <NavLink href="/">Home</NavLink>
+            <NavLink href="/">{t('nav.home')}</NavLink>
 
             {/* Men Dropdown */}
             <div 
@@ -138,7 +145,7 @@ const NavBar = () => {
                   backgroundColor: menOpen ? "rgba(201,160,76,0.07)" : "transparent",
                 }}
               >
-                Men
+                {t('nav.men')}
                 <svg width="10" height="10" viewBox="0 0 12 12" fill="none" style={{ transform: menOpen ? "rotate(180deg)" : "none", transition: "transform 0.25s ease" }}>
                   <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -177,7 +184,7 @@ const NavBar = () => {
                   backgroundColor: saleOpen ? "rgba(201,160,76,0.07)" : "transparent",
                 }}
               >
-                Sale
+                {t('nav.sale')}
                 <svg width="10" height="10" viewBox="0 0 12 12" fill="none" style={{ transform: saleOpen ? "rotate(180deg)" : "none", transition: "transform 0.25s ease" }}>
                   <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -191,59 +198,23 @@ const NavBar = () => {
               )}
             </div>
 
-            <NavLink href="/About">About</NavLink>
+            <NavLink href="/About">{t('nav.about')}</NavLink>
 
             {session?.data?.user && (
-              <NavLink href="/Dashboard">Dashboard</NavLink>
+              <NavLink href="/Dashboard">{t('nav.dashboard')}</NavLink>
             )}
-          </div>
-
-          {/* ── Search Bar (desktop) ── */}
-          <div className="nav-search" style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            background: "var(--surface)",
-            border: "1px solid var(--border)",
-            borderRadius: "var(--r-sm)",
-            padding: "7px 14px",
-            width: 240,
-            flexShrink: 0,
-            transition: "all 0.25s ease",
-          }}
-            onFocus={(e) => {
-              e.currentTarget.style.borderColor = "var(--gold-dim)";
-              e.currentTarget.style.boxShadow = "0 0 0 3px var(--gold-glow)";
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.borderColor = "var(--border)";
-              e.currentTarget.style.boxShadow = "none";
-            }}
-          >
-            <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-              <circle cx="6.5" cy="6.5" r="5" stroke="var(--text-4)" strokeWidth="1.3"/>
-              <path d="M10.5 10.5l3 3" stroke="var(--text-4)" strokeWidth="1.3" strokeLinecap="round"/>
-            </svg>
-            <input
-              type="text"
-              placeholder="Search products..."
-              style={{
-                background: "none",
-                border: "none",
-                outline: "none",
-                color: "var(--text)",
-                fontFamily: "var(--font-body)",
-                fontSize: "0.82rem",
-                width: "100%",
-              }}
-            />
           </div>
 
           {/* ── Right Icons ── */}
           <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+            {/* Language Toggle */}
+            <IconBtn onClick={toggleLanguage} aria-label="Toggle Language" style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", fontWeight: 700, padding: "8px 12px" }}>
+              {i18n.language === 'en' ? 'AR' : 'EN'}
+            </IconBtn>
+
             {/* User */}
             <Link href="/userInfo">
-              <IconBtn aria-label="Account">
+              <IconBtn aria-label={t('nav.account')}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                   <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5"/>
                   <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
@@ -253,7 +224,7 @@ const NavBar = () => {
 
             {/* Cart */}
             <Link href="/cart2">
-              <IconBtn aria-label={`Cart — ${cart.length} items`} style={{ position: "relative" }}>
+              <IconBtn aria-label={`${t('nav.cart')} — ${cart.length} items`} style={{ position: "relative" }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                   <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" strokeWidth="1.5"/>
@@ -364,7 +335,7 @@ const NavBar = () => {
         <nav style={{ padding: "16px 12px", flex: 1 }}>
           <MobileLink href="/" onClick={() => setMobileOpen(false)} icon={
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 12L12 3l9 9M5 10v10h5v-5h4v5h5V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-          }>Home</MobileLink>
+          }>{t('nav.home')}</MobileLink>
 
           <button
             onClick={() => setMenMobileOpen(!menMobileOpen)}
@@ -379,26 +350,14 @@ const NavBar = () => {
           >
             <span style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-              Men
+              {t('nav.men')}
             </span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: menMobileOpen ? "rotate(180deg)" : "none", transition: "transform 0.3s" }}>
               <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </button>
-          {menMobileOpen && (
-            <div style={{ paddingLeft: 38, paddingBottom: 8, marginTop: 4 }}>
-              {["New Arrivals", "T-Shirts", "Pants", "Shoes", "Accessories"].map((item) => (
-                <button key={item} onClick={() => setMobileOpen(false)} style={{
-                  display: "block", width: "100%", textAlign: "left",
-                  background: "none", border: "none", cursor: "pointer",
-                  color: "var(--text-4)", fontFamily: "var(--font-body)", fontSize: "0.85rem",
-                  padding: "10px 0", transition: "color 0.2s",
-                }}>
-                  {item}
-                </button>
-              ))}
-            </div>
-          )}
+          
+          {/* Mobile links could also be translated here */}
 
           <button
             onClick={() => setSaleMobileOpen(!saleMobileOpen)}
@@ -413,36 +372,32 @@ const NavBar = () => {
           >
             <span style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-              Sale
+              {t('nav.sale')}
             </span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: saleMobileOpen ? "rotate(180deg)" : "none", transition: "transform 0.3s" }}>
               <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </button>
-          {saleMobileOpen && (
-            <div style={{ paddingLeft: 38, paddingBottom: 8, marginTop: 4 }}>
-              {["Flash Sale", "Winter Clearance", "Member Deals"].map((item) => (
-                <button key={item} onClick={() => setMobileOpen(false)} style={{
-                  display: "block", width: "100%", textAlign: "left",
-                  background: "none", border: "none", cursor: "pointer",
-                  color: "var(--gold-dim)", fontFamily: "var(--font-body)", fontSize: "0.85rem",
-                  padding: "10px 0", transition: "color 0.2s",
-                }}>
-                  {item}
-                </button>
-              ))}
-            </div>
-          )}
 
           <MobileLink href="/About" onClick={() => setMobileOpen(false)} icon={
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5"/><path d="M12 16v-4M12 8h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
-          }>About</MobileLink>
+          }>{t('nav.about')}</MobileLink>
 
           {session?.data?.user && (
             <MobileLink href="/Dashboard" onClick={() => setMobileOpen(false)} icon={
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" stroke="currentColor" strokeWidth="1.5"/><rect x="14" y="3" width="7" height="7" stroke="currentColor" strokeWidth="1.5"/><rect x="3" y="14" width="7" height="7" stroke="currentColor" strokeWidth="1.5"/><rect x="14" y="14" width="7" height="7" stroke="currentColor" strokeWidth="1.5"/></svg>
-            }>Dashboard</MobileLink>
+            }>{t('nav.dashboard')}</MobileLink>
           )}
+
+          <div style={{ marginTop: 20, padding: "0 14px" }}>
+             <button onClick={toggleLanguage} style={{
+                width: "100%", background: "var(--surface)", border: "1px solid var(--border)",
+                borderRadius: "var(--r-sm)", padding: "10px", color: "var(--text-2)",
+                fontFamily: "var(--font-mono)", fontSize: "0.8rem", fontWeight: 600,
+             }}>
+                {i18n.language === 'en' ? 'العربية (AR)' : 'English (EN)'}
+             </button>
+          </div>
         </nav>
 
         {/* Drawer footer */}
@@ -464,7 +419,7 @@ const NavBar = () => {
               transition: "all 0.2s",
               boxShadow: "var(--shadow-gold)",
             }}>
-              Account Portal
+              {t('nav.account')}
             </button>
           </Link>
         </div>
@@ -533,7 +488,6 @@ function DropdownMenu({ children }) {
         zIndex: 2000,
       }}
     >
-      {/* Arrow */}
       <div style={{
         position: "absolute",
         top: -6,

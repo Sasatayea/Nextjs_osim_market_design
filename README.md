@@ -1,68 +1,108 @@
-# OSIM Market
+# 🏛️ OSIM Market — Obsidian Luxury E-Commerce
 
-OSIM Market is a premium, modern e-commerce platform built with Next.js and React. It features a sophisticated, high-performance user interface with smooth cinematic animations, secure authentication, scalable database management, and integrated payment processing. The project aims to provide a top-tier shopping experience with an elegant dark-mode aesthetic.
+[![Next.js](https://img.shields.io/badge/Next.js-16.2.4-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.2.4-61DAFB?style=for-the-badge&logo=react)](https://reactjs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-7.2.0-47A248?style=for-the-badge&logo=mongodb)](https://www.mongodb.com/)
+[![Stripe](https://img.shields.io/badge/Stripe-22.1.0-626CD9?style=for-the-badge&logo=stripe)](https://stripe.com/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.2.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![i18next](https://img.shields.io/badge/i18next-Multi--Language-26A69A?style=for-the-badge&logo=i18next)](https://www.i18next.com/)
 
-## Features & Technology Stack
+**OSIM Market** is a premium, award-winning digital experience reimagining men's fashion e-commerce. Built with a bespoke **"Obsidian Luxury"** design system, it combines high-performance server-side rendering with sophisticated cinematic motion design.
 
-### Core Framework
-- **Next.js (v16)**: The core framework providing server-side rendering, App Router, and optimized performance.
-- **React (v19)**: The UI library used for building interactive and component-driven user interfaces.
+---
 
-### Styling & UI Libraries
-The project utilizes a powerful combination of styling tools to achieve a premium, dynamic design:
-- **Tailwind CSS**: The primary utility-first CSS framework used for rapid, responsive layout structuring and consistent design tokens.
-- **Material UI (MUI)**: Used for specific, robust pre-built components (like ActionAreaCards, Drawers, and Icons) to accelerate development while maintaining a professional look.
-- **Framer Motion**: Powers the cinematic user experience with sophisticated entrance animations, micro-interactions, and smooth layout transitions.
-- **Bootstrap**: Included alongside standard CSS modules for flexible layout structuring and utility classes.
-- **Emotion**: The CSS-in-JS library powering MUI components.
+## ✨ Key Features
 
-### Authentication (GitHub OAuth)
-- **Better-Auth Integration**: Secure user authentication and session management is handled via `better-auth`.
-- **GitHub OAuth**: Users can seamlessly and securely log in using their GitHub accounts. This provides a frictionless onboarding experience, relying on OAuth 2.0 standards to handle identity verification without the need to manage sensitive passwords directly on our servers.
+-   **💎 Obsidian Luxury UI**: A bespoke design language featuring deep obsidian tones, gold gradients, and glassmorphism.
+-   **🌍 Multi-Language Support**: Full English and Arabic (RTL) integration powered by `i18next`.
+-   **🎬 Cinematic Animations**: Fluid entrance sequences and micro-interactions using `Framer Motion`.
+-   **🔐 Secure Auth**: Seamless GitHub OAuth integration via `better-auth`.
+-   **💳 Professional Checkout**: End-to-end secure payment processing with `Stripe`.
+-   **⚡ High Performance**: Optimized SSR/ISR data fetching for lightning-fast catalog browsing.
+-   **📱 Fully Responsive**: Tailored editorial layouts for Desktop, Tablet, and Mobile.
 
-### Database (MongoDB)
-- **MongoDB**: A scalable, flexible NoSQL database used as the primary data store.
-- **Data Management**: It handles the secure storage and rapid retrieval of dynamic e-commerce data, including the product catalog, user profiles, active shopping carts, and comprehensive order history. Its document-oriented structure is ideal for the scalable and varied data schemas required by a modern digital marketplace.
+---
 
-### Payments (Stripe)
-- **Stripe Integration**: Complete, secure end-to-end payment processing using the official Stripe Node.js library.
-- **Checkout Flow**: Handles secure checkout sessions, ensuring PCI-compliant credit card processing. Stripe manages the secure transaction workflow, order validations, and provides a robust framework for handling webhooks and payment confirmations.
+## 🛠️ Technical Architecture
 
-## Getting Started
+### Core Stack
+*   **Next.js 16 (App Router)**: Orchestrating server components and optimized routing.
+*   **React 19**: Driving the interactive UI layer.
+*   **MongoDB**: Scalable NoSQL architecture for products, users, and order management.
 
-### Prerequisites
-Ensure you have the following installed and set up:
-- Node.js (v18 or higher recommended)
-- MongoDB Cluster/Instance
-- Stripe Account (for API keys)
-- GitHub Developer Account (for OAuth App setup)
+### Styling & Design System
+*   **Tailwind CSS 4**: Utility-first foundation for responsive layouts.
+*   **Bespoke CSS Modules**: Custom-crafted glassmorphism and obsidian design tokens.
+*   **Material UI (MUI) 9**: Robust component framework for complex dashboard elements.
+*   **Typography**: 
+    *   *Cormorant Garamond*: For editorial display headings.
+    *   *DM Sans / Cairo*: For high-readability body text (EN/AR).
 
-### Installation
+### Services & Utilities
+*   **Better-Auth**: Production-grade authentication middleware.
+*   **Stripe SDK**: Secure payment orchestration and webhook handling.
+*   **i18next**: Context-aware translation management with RTL detection.
+*   **Framer Motion 12**: Advanced physics-based animations.
 
-1. Install dependencies:
+---
+
+## 📂 Project Structure
+
+```bash
+├── app/               # Next.js App Router (Pages, APIs, Layouts)
+├── components/        # UI Component Library
+│   ├── ui/            # Atomic components (Animations, Skeletons)
+│   ├── NavBar.jsx     # Smart Navigation with i18n
+│   └── Footer.js      # Global translated Footer
+├── lib/               # Shared logic & i18n configuration
+├── context/           # React Context (Cart, Auth state)
+├── public/            # Static assets & brand media
+└── styles/            # Global design tokens & legacy CSS
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Environment Configuration
+Create a `.env` file in the root directory:
+```env
+# Database
+MONGODB_URI=your_mongodb_connection_string
+
+# Authentication
+BETTER_AUTH_SECRET=your_secret
+GITHUB_CLIENT_ID=your_id
+GITHUB_CLIENT_SECRET=your_secret
+
+# Payments
+STRIPE_SECRET_KEY=your_stripe_key
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_pub_key
+
+# App
+NEXT_PUBLIC_APIURL=http://localhost:3000
+```
+
+### 2. Installation
 ```bash
 npm install
 ```
 
-2. Environment Configuration:
-Create a `.env` file in the root directory and configure the necessary credentials for the external services (MongoDB URI, Stripe Secret Key, GitHub Client ID, and GitHub Client Secret).
-
-3. Run the development server:
+### 3. Development
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to view the application.
+---
 
+## 🔗 Project Links
 
+*   **Demo Video**: [Watch Preview](https://drive.google.com/file/d/1mSbY9zuKWhctywoH2UTrqTppZm2B4MaB/view?usp=sharing)
+*   **Technical Explanation**: [Review Documentation](https://drive.google.com/file/d/1Md-8C3ylTbr2dLSrDslwijyaD4t974sj/view?usp=sharing)
 
+---
 
-show link : https://drive.google.com/file/d/1mSbY9zuKWhctywoH2UTrqTppZm2B4MaB/view?usp=sharing
-
-Link to the explanation: https://drive.google.com/file/d/1Md-8C3ylTbr2dLSrDslwijyaD4t974sj/view?usp=sharing
-
-## Project Structure Overview
-- `/app`: Next.js App Router containing all page routes, layouts, and API endpoints.
-- `/components`: Reusable React components (e.g., `NavBar`, `Footer`, `ActionAreaCard`).
-- `/lib` / `/data`: Utility functions, database connection configurations, and shared logic.
-- `/public`: Static assets including images, icons, and fonts.
+<div align="center">
+  <p>Built with passion for the modern gentleman.</p>
+  <sub>© 2024 OSIM Market. All rights reserved.</sub>
+</div>

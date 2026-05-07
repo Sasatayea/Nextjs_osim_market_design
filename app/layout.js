@@ -3,6 +3,7 @@ import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import "bootstrap/dist/css/bootstrap.css";
+import I18nProvider from "@/components/I18nProvider";
 
 import { useEffect } from "react";
 import { CartProvider } from "./context/CartContext";
@@ -34,11 +35,13 @@ export default function RootLayout({ children }) {
           color: "var(--text)",
         }}
       >
-        <NavBar />
         <CartProvider>
-          <main style={{ flex: 1 }}>{children}</main>
+          <I18nProvider>
+            <NavBar />
+            <main style={{ flex: 1 }}>{children}</main>
+            <Footer />
+          </I18nProvider>
         </CartProvider>
-        <Footer />
       </body>
     </html>
   );
