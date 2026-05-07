@@ -1,6 +1,5 @@
 "use client";
 
-import { Box, Typography, Button } from "@mui/material";
 import Link from "next/link";
 
 export default function EmptyState({
@@ -11,77 +10,94 @@ export default function EmptyState({
   actionHref = "/",
 }) {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        py: 10,
-        px: 3,
-        textAlign: "center",
-        animation: "fadeIn 0.5s ease forwards",
-      }}
-    >
-      <Box
-        sx={{
-          fontSize: "4rem",
-          mb: 3,
-          animation: "float 3s ease-in-out infinite",
-        }}
-      >
+    <div style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      minHeight: "60vh",
+      padding: "80px 24px",
+      textAlign: "center",
+      fontFamily: "var(--font-body)",
+      animation: "fadeIn 0.5s ease forwards",
+    }}>
+      {/* Icon */}
+      <div style={{
+        fontSize: "3.5rem",
+        marginBottom: 24,
+        animation: "float 3s ease-in-out infinite",
+        lineHeight: 1,
+      }}>
         {icon}
-      </Box>
+      </div>
 
-      <Typography
-        variant="h5"
-        sx={{
-          fontWeight: 700,
-          color: "var(--text)",
-          mb: 1,
-        }}
-      >
+      {/* Decorative line */}
+      <div style={{
+        width: 40, height: 1,
+        background: "linear-gradient(90deg, transparent, var(--gold-dim), transparent)",
+        marginBottom: 24,
+      }} />
+
+      <h2 style={{
+        fontFamily: "var(--font-display)",
+        fontWeight: 600,
+        fontSize: "1.7rem",
+        color: "var(--text)",
+        letterSpacing: "-0.02em",
+        marginBottom: 10,
+      }}>
         {title}
-      </Typography>
+      </h2>
 
       {description && (
-        <Typography
-          sx={{
-            color: "var(--text-muted)",
-            maxWidth: 400,
-            mb: 3,
-            fontSize: "0.95rem",
-          }}
-        >
+        <p style={{
+          color: "var(--text-3)",
+          maxWidth: 380,
+          marginBottom: 32,
+          fontSize: "0.88rem",
+          lineHeight: 1.7,
+        }}>
           {description}
-        </Typography>
+        </p>
       )}
 
       {actionLabel && (
-        <Link href={actionHref}>
-          <Button
-            variant="contained"
-            sx={{
-              background: "linear-gradient(135deg, var(--primary), #8b5cf6)",
-              color: "#fff",
-              fontWeight: 600,
-              borderRadius: "var(--radius-md)",
-              px: 4,
-              py: 1.2,
-              textTransform: "none",
-              boxShadow: "0 4px 16px var(--primary-glow)",
-              "&:hover": {
-                background: "linear-gradient(135deg, var(--primary-hover), #9b6ff7)",
-                transform: "translateY(-2px)",
-                boxShadow: "0 8px 24px var(--primary-glow)",
-              },
-              transition: "all 0.25s ease",
+        <Link href={actionHref} style={{ textDecoration: "none" }}>
+          <button style={{
+            background: "linear-gradient(135deg, var(--gold-light), var(--gold))",
+            color: "#0a0804",
+            border: "none",
+            borderRadius: "var(--r-sm)",
+            padding: "12px 28px",
+            fontFamily: "var(--font-body)",
+            fontWeight: 600,
+            fontSize: "0.82rem",
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            cursor: "pointer",
+            transition: "all 0.25s",
+            boxShadow: "var(--shadow-gold)",
+          }}
+            onMouseEnter={e => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = "var(--shadow-gold-lg)";
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.transform = "none";
+              e.currentTarget.style.boxShadow = "var(--shadow-gold)";
             }}
           >
-            {actionLabel}
-          </Button>
+            {actionLabel} →
+          </button>
         </Link>
       )}
-    </Box>
+
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
+        }
+      `}</style>
+    </div>
   );
 }

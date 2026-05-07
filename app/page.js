@@ -2,6 +2,12 @@ import styles from "./page.module.css";
 import ActionAreaCard from "../components/ActionAreaCard";
 import { FadeInUp, StaggerContainer, StaggerItem } from "@/components/ui/Animations";
 
+export const metadata = {
+  title: "OSIM Market — Premium Men's Fashion",
+  description:
+    "Discover curated premium men's fashion at OSIM Market. Shop the latest collections of high-quality clothing, shoes, and accessories.",
+};
+
 export default async function Home() {
   async function getData() {
     const res = await fetch("http://localhost:3000/api/products", {
@@ -12,48 +18,66 @@ export default async function Home() {
 
   const myData = await getData();
 
-
   const groupedProducts = myData.reduce((acc, product) => {
     const category = product.product_category;
-
-    if (!acc[category]) {
-      acc[category] = [];
-    }
-
+    if (!acc[category]) acc[category] = [];
     acc[category].push(product);
-
     return acc;
   }, {});
 
-  console.log(groupedProducts);
-
   return (
-    <main className={styles.container} style={{ backgroundColor: "white", minHeight: "100vh" }}>
-      {/* Hero Section */}
-      <FadeInUp duration={0.8}>
-        <section className={styles.hero}>
-          <h1>Redefine Your Style</h1>
-          <p>Discover the latest collections and exclusive deals on premium fashion. Elevate your everyday wardrobe with OSIM Market.</p>
-          <div className={styles.ctaContainer}>
-            <button className={styles.primaryBtn}>Shop New Arrivals</button>
-            <button className={styles.secondaryBtn}>Explore Collections</button>
+    <main style={{ backgroundColor: "var(--bg)", minHeight: "100vh" }}>
+      {/* ── Hero ── */}
+      <section className={styles.hero}>
+        <div className={styles.heroInner}>
+          <div className={styles.heroEyebrow}>
+            New Collection 2024
           </div>
-        </section>
-      </FadeInUp>
 
-      {/* Products Section */}
-      <section className={styles.productsSection}>
-        <h2 className={styles.sectionTitle}>Featured Products</h2>
+          <h1 className={styles.heroTitle}>
+            Dress With<br />
+            <em>Purpose.</em>
+          </h1>
 
-          {Object.entries(groupedProducts).map(([category, products]) => (
-            <FadeInUp key={category} delay={0.2} duration={0.6}>
-              <section>
-                <div className={styles.categoryHeader}>
-                  <h2 className={styles.sectionTitle}>{category}</h2>
-                  <a href="#" className={styles.viewAll}>View All →</a>
+          <div className={styles.heroDivider} />
+
+          <p className={styles.heroSubtitle}>
+            Curated premium men&apos;s fashion for those who believe
+            that style is a statement, not an afterthought.
+          </p>
+
+          <div className={styles.heroCta}>
+            <button className={styles.heroCtaPrimary}>
+              Shop New Arrivals
+            </button>
+            <button className={styles.heroCtaSecondary}>
+              Explore Collections
+            </button>
+          </div>
+        </div>
+
+        <div className={styles.heroScroll}>
+          <div className={styles.heroScrollLine} />
+          Scroll
+        </div>
+      </section>
+
+      {/* ── Products ── */}
+      <div className={styles.container}>
+        <section className={styles.productsSection}>
+
+          {Object.entries(groupedProducts).map(([category, products], i) => (
+            <FadeInUp key={category} delay={0.1} duration={0.6}>
+              <div className={styles.categoryBlock}>
+                <div className={styles.sectionHeaderRow}>
+                  <div>
+                    <div className={styles.sectionLabel}>Collection</div>
+                    <h2 className={styles.sectionTitle}>{category}</h2>
+                  </div>
+                  <a href="#" className={styles.viewAll}>View All</a>
                 </div>
 
-                <StaggerContainer className={styles.grid} staggerDelay={0.15}>
+                <StaggerContainer className={styles.grid} staggerDelay={0.08}>
                   {products.map((d) => (
                     <StaggerItem key={d._id}>
                       <ActionAreaCard
@@ -68,11 +92,12 @@ export default async function Home() {
                     </StaggerItem>
                   ))}
                 </StaggerContainer>
-              </section>
+              </div>
             </FadeInUp>
           ))}
 
-      </section>
+        </section>
+      </div>
     </main>
   );
 }

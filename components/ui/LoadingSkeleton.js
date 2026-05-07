@@ -1,18 +1,16 @@
 "use client";
 
-import { Box } from "@mui/material";
-
 /* ── Generic skeleton block ── */
-export function LoadingSkeleton({ width = "100%", height = 20, borderRadius = "var(--radius-sm)", style = {} }) {
+export function LoadingSkeleton({
+  width = "100%",
+  height = 20,
+  borderRadius = "var(--r-sm)",
+  style = {},
+}) {
   return (
     <div
       className="skeleton"
-      style={{
-        width,
-        height,
-        borderRadius,
-        ...style,
-      }}
+      style={{ width, height, borderRadius, ...style }}
     />
   );
 }
@@ -20,20 +18,18 @@ export function LoadingSkeleton({ width = "100%", height = 20, borderRadius = "v
 /* ── Product card skeleton ── */
 export function ProductCardSkeleton() {
   return (
-    <div
-      style={{
-        background: "var(--surface)",
-        borderRadius: "var(--radius-lg)",
-        overflow: "hidden",
-        border: "1px solid var(--border)",
-      }}
-    >
-      <div className="skeleton" style={{ height: 220, borderRadius: 0 }} />
-      <div style={{ padding: "16px" }}>
-        <div className="skeleton skeleton-text lg" />
-        <div className="skeleton skeleton-text" style={{ width: "80%" }} />
-        <div style={{ marginTop: 12 }}>
-          <div className="skeleton skeleton-text" style={{ width: "40%" }} />
+    <div style={{
+      background: "var(--surface)",
+      borderRadius: "var(--r-lg)",
+      overflow: "hidden",
+      border: "1px solid var(--border)",
+    }}>
+      <div className="skeleton" style={{ height: 260, borderRadius: 0 }} />
+      <div style={{ padding: "18px 18px 20px" }}>
+        <div className="skeleton" style={{ height: 16, width: "80%", borderRadius: "var(--r-xs)", marginBottom: 8 }} />
+        <div className="skeleton" style={{ height: 13, width: "60%", borderRadius: "var(--r-xs)", marginBottom: 16 }} />
+        <div style={{ borderTop: "1px solid var(--border)", paddingTop: 12 }}>
+          <div className="skeleton" style={{ height: 14, width: "45%", borderRadius: "var(--r-xs)" }} />
         </div>
       </div>
     </div>
@@ -43,13 +39,11 @@ export function ProductCardSkeleton() {
 /* ── Product grid skeleton ── */
 export function ProductGridSkeleton({ count = 8 }) {
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-        gap: 20,
-      }}
-    >
+    <div style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+      gap: "var(--space-6)",
+    }}>
       {Array.from({ length: count }).map((_, i) => (
         <ProductCardSkeleton key={i} />
       ))}
@@ -60,35 +54,40 @@ export function ProductGridSkeleton({ count = 8 }) {
 /* ── Profile page skeleton ── */
 export function ProfileSkeleton() {
   return (
-    <Box
-      sx={{
-        maxWidth: 500,
-        mx: "auto",
-        mt: 8,
-        p: 4,
+    <div style={{
+      minHeight: "100vh",
+      backgroundColor: "var(--bg)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "40px 24px",
+    }}>
+      <div style={{
+        width: "100%", maxWidth: 500,
         background: "var(--surface)",
-        borderRadius: "var(--radius-lg)",
         border: "1px solid var(--border)",
-        textAlign: "center",
-      }}
-    >
-      <div
-        className="skeleton skeleton-avatar"
-        style={{ margin: "0 auto 20px" }}
-      />
-      <div
-        className="skeleton skeleton-text lg"
-        style={{ margin: "0 auto 8px", width: "50%" }}
-      />
-      <div
-        className="skeleton skeleton-text"
-        style={{ margin: "0 auto", width: "70%" }}
-      />
-      <div style={{ marginTop: 32, display: "flex", gap: 12, justifyContent: "center" }}>
-        <div className="skeleton" style={{ width: 100, height: 36, borderRadius: "var(--radius-md)" }} />
-        <div className="skeleton" style={{ width: 100, height: 36, borderRadius: "var(--radius-md)" }} />
+        borderRadius: "var(--r-xl)",
+        overflow: "hidden",
+      }}>
+        <div className="skeleton" style={{ height: 110, borderRadius: 0 }} />
+        <div style={{ padding: "32px", textAlign: "center" }}>
+          <div className="skeleton" style={{
+            width: 88, height: 88, borderRadius: "50%",
+            margin: "-60px auto 20px",
+            border: "3px solid var(--bg)",
+            position: "relative",
+            zIndex: 2,
+          }} />
+          <div className="skeleton" style={{ height: 22, width: "50%", margin: "0 auto 10px", borderRadius: "var(--r-sm)" }} />
+          <div className="skeleton" style={{ height: 14, width: "35%", margin: "0 auto 32px", borderRadius: "var(--r-xs)" }} />
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <div className="skeleton" style={{ height: 52, borderRadius: "var(--r-md)" }} />
+            <div className="skeleton" style={{ height: 52, borderRadius: "var(--r-md)" }} />
+            <div className="skeleton" style={{ height: 44, borderRadius: "var(--r-sm)", marginTop: 8 }} />
+          </div>
+        </div>
       </div>
-    </Box>
+    </div>
   );
 }
 
@@ -97,19 +96,24 @@ export function TableRowSkeleton({ count = 5 }) {
   return (
     <>
       {Array.from({ length: count }).map((_, i) => (
-        <div
-          key={i}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 16,
-            padding: "12px 16px",
-            borderBottom: "1px solid var(--border)",
-          }}
-        >
-          <div className="skeleton" style={{ width: 50, height: 50, borderRadius: "var(--radius-sm)", flexShrink: 0 }} />
-          <div className="skeleton skeleton-text" style={{ flex: 1, marginBottom: 0 }} />
-          <div className="skeleton" style={{ width: 80, height: 32, borderRadius: "var(--radius-sm)" }} />
+        <div key={i} style={{
+          display: "flex", alignItems: "center", gap: 16,
+          padding: "14px 20px",
+          borderTop: "1px solid var(--border)",
+        }}>
+          <div className="skeleton" style={{
+            width: 52, height: 52, flexShrink: 0,
+            borderRadius: "var(--r-sm)",
+          }} />
+          <div style={{ flex: 1 }}>
+            <div className="skeleton" style={{ height: 13, width: "65%", marginBottom: 6, borderRadius: "var(--r-xs)" }} />
+            <div className="skeleton" style={{ height: 11, width: "35%", borderRadius: "var(--r-xs)" }} />
+          </div>
+          <div style={{ display: "flex", gap: 6 }}>
+            {[34, 34, 34].map((w, j) => (
+              <div key={j} className="skeleton" style={{ width: w, height: 34, borderRadius: "var(--r-sm)" }} />
+            ))}
+          </div>
         </div>
       ))}
     </>
